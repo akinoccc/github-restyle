@@ -1,6 +1,14 @@
 # GitHub Restyle
 
-一个 Chrome 扩展，用来给 GitHub 重新定义主题。
+<p align="center">
+  <img src="./public/icons/icon-128.png" alt="GitHub Restyle logo" width="128" height="128" />
+</p>
+
+一个 Chrome 扩展，用于重新定义 Github 主题。
+
+## 效果预览
+
+![GitHub Restyle vivid light theme preview](./docs/image.png)
 
 ## 安装
 
