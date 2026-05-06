@@ -1,0 +1,7 @@
+:root[data-github-restyle-theme='vivid-light'].github-restyle-page-discussion-detail
+  main
+  .github-restyle-discussion-header {
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}

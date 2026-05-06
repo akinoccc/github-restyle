@@ -1,0 +1,85 @@
+name: Release extension
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Build and publish release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Read package version
+        id: package
+        run: |
+          VERSION="$(node -p "require('./package.json').version")"
+          TAG="v${VERSION}"
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "tag=${TAG}" >> "$GITHUB_OUTPUT"
+
+      - name: Check existing tag
+        id: tag
+        run: |
+          if git rev-parse "${{ steps.package.outputs.tag }}" >/dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build extension
+        if: steps.tag.outputs.exists == 'false'
+        run: pnpm run build
+
+      - name: Package extension
+        if: steps.tag.outputs.exists == 'false'
+        run: |
+          cd dist
+          zip -r "../github-restyle-${{ steps.package.outputs.tag }}.zip" .
+
+      - name: Create and push tag
+        if: steps.tag.outputs.exists == 'false'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag "${{ steps.package.outputs.tag }}"
+          git push origin "${{ steps.package.outputs.tag }}"
+
+      - name: Create GitHub release
+        if: steps.tag.outputs.exists == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${{ steps.package.outputs.tag }}" \
+            "github-restyle-${{ steps.package.outputs.tag }}.zip" \
+            --title "GitHub Restyle ${{ steps.package.outputs.tag }}" \
+            --notes "Download the zip file, unzip it, then load the extracted folder from chrome://extensions with Developer Mode enabled."
+
+      - name: Skip existing version
+        if: steps.tag.outputs.exists == 'true'
+        run: echo "Tag ${{ steps.package.outputs.tag }} already exists. Bump package.json version before publishing a new release."

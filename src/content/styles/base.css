@@ -1,0 +1,20 @@
+:root[data-github-restyle-enabled='true'] {
+  --github-restyle-radius: 10px;
+  --github-restyle-shadow: 0 10px 24px rgba(31, 35, 40, 0.12);
+  --github-restyle-fast: 140ms ease;
+}
+
+:root[data-github-restyle-enabled='true'] .github-restyle-button,
+:root[data-github-restyle-enabled='true'] .github-restyle-list-row,
+:root[data-github-restyle-enabled='true'] .github-restyle-panel,
+:root[data-github-restyle-enabled='true'] .github-restyle-label {
+  transition:
+    background-color var(--github-restyle-fast),
+    border-color var(--github-restyle-fast),
+    box-shadow var(--github-restyle-fast),
+    transform var(--github-restyle-fast);
+}
+
+:root[data-github-restyle-enabled='false'] {
+  color-scheme: normal;
+}

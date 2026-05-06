@@ -1,0 +1,56 @@
+:root[data-github-restyle-theme='vivid-light']:is(.github-restyle-page-issues, .github-restyle-page-pulls)
+  main
+  .github-restyle-button {
+  min-height: 38px;
+  align-items: center;
+  border: 1px solid rgba(36, 33, 36, 0.32) !important;
+  border-radius: 10px !important;
+  background:
+    linear-gradient(180deg, #ffffff, #fff8df),
+    #ffffff !important;
+  color: var(--github-restyle-ink) !important;
+  box-shadow:
+    2px 2px 0 rgba(255, 110, 169, 0.42),
+    0 0 0 2px rgba(255, 217, 88, 0.18) !important;
+  font-weight: 750;
+}
+
+:root[data-github-restyle-theme='vivid-light']:is(.github-restyle-page-issues, .github-restyle-page-pulls)
+  main
+  .github-restyle-issue-search-button {
+  width: 40px !important;
+  min-width: 40px !important;
+  height: 40px !important;
+  min-height: 40px !important;
+  justify-content: center;
+  padding-inline: 0 !important;
+  border-color: #2f2245 !important;
+  border-radius: 10px !important;
+  background:
+    linear-gradient(180deg, #fff8df, #ffeaf6),
+    #ffffff !important;
+  color: var(--github-restyle-purple) !important;
+  box-shadow:
+    2px 2px 0 var(--github-restyle-pink),
+    0 0 0 2px rgba(255, 217, 88, 0.2) !important;
+}
+
+:root[data-github-restyle-theme='vivid-light']:is(.github-restyle-page-issues, .github-restyle-page-pulls)
+  main
+  .github-restyle-button-primary {
+  border-color: #166b39 !important;
+  background:
+    linear-gradient(180deg, #38c875, #168545),
+    #168545 !important;
+  color: #ffffff !important;
+  box-shadow: 3px 3px 0 rgba(36, 33, 36, 0.88) !important;
+}
+
+:root[data-github-restyle-theme='vivid-light']:is(.github-restyle-page-issues, .github-restyle-page-pulls)
+  main
+  .github-restyle-button:hover {
+  transform: translate(-1px, -1px);
+  box-shadow:
+    3px 3px 0 rgba(255, 110, 169, 0.58),
+    0 0 0 2px rgba(255, 217, 88, 0.24) !important;
+}
